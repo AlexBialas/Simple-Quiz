@@ -17,7 +17,6 @@ const questions = [
       { text: "String", correct: false },
     ],
   },
-  // ... other questions
 ];
 
 const questionElement = document.getElementById("question");
@@ -57,10 +56,6 @@ function resetState() {
 }
 
 function selectAnswer(answer) {
-  if (answer.correct) {
-    score++;
-  }
-
   const buttons = answerButtons.childNodes;
   buttons.forEach((button) => {
     button.disabled = true;
@@ -68,6 +63,19 @@ function selectAnswer(answer) {
       button.classList.add(answer.correct ? "correct" : "incorrect");
     }
   });
+
+  if (answer.correct) {
+    score++;
+  } else {
+    const correctAnswer = questions[currentQuestionIndex].answers.find(
+      (a) => a.correct
+    );
+    const correctButton = document.createElement("button");
+    correctButton.innerHTML = `Right Answer: ${correctAnswer.text}`;
+    correctButton.classList.add("btn", "correct-answer");
+    correctButton.disabled = true;
+    answerButtons.appendChild(correctButton);
+  }
 
   nextButton.style.display = "block";
 }
@@ -86,10 +94,7 @@ function showScore() {
   questionElement.innerHTML = `You scored ${score} out of ${questions.length}!`;
   nextButton.innerHTML = "Restart";
   nextButton.style.display = "block";
+  nextButton.addEventListener("click", startQuiz);
 }
-
-nextButton.addEventListener("click", () => {
-  startQuiz();
-});
 
 startQuiz();

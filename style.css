@@ -67,3 +67,18 @@ body {
   cursor: pointer;
   display: none;
 }
+.correct {
+  background-color: #4caf50;
+}
+
+.incorrect {
+  background-color: #f44336;
+}
+
+.correct-answer {
+  background-color: yellow;
+  border: 1px solid black;
+  color: black;
+  padding: 10px;
+  cursor: default;
+}
